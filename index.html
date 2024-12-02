@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Content</title>
+  <style>
+    /* Body and general styles */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+      transition: background-color 0.5s ease;
+      background-color: #f0f0f0; 
+    }
+
+    /* Button styles */
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Image styles */
+    img {
+      width: 300px; 
+      height: auto;
+      margin-top: 20px;
+      border: 5px solid white; 
+      border-radius: 15px; 
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+      transition: all 0.3s ease;
+    }
+
+    /* Hover effect for images */
+    img:hover {
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); 
+      transform: scale(1.05); 
+    }
+
+    /* Responsive design for smaller screens */
+    @media (max-width: 768px) {
+      img {
+        width: 300px; /* Smaller image size on mobile */
+      }
+
+      button {
+        width: 100%; /* Full-width buttons on smaller screens */
+        padding: 15px;
+      }
+    }
+
+    #welcome {
+      margin-bottom: 20px;
+    }
+
+    #buttons {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="welcome">
+    <h1>Welcome to the Interactive Content!</h1>
+    <p>Click one of the buttons below to change the content and view different images.</p>
+  </div>
+
+  <div id="buttons">
+    <button id="boy-btn" onclick="showContent('boy')">Boy</button>
+    <button id="girl-btn" onclick="showContent('girl')">Girl</button>
+    <button id="old-btn" onclick="showContent('old')">Old</button>
+  </div>
+
+  <div id="content">
+    <!-- Content will be dynamically updated when a button is clicked -->
+  </div>
+
+  <script>
+    const contentData = {
+      boy: {
+        title: "Boy's Content",
+        description: "This is content for the boy section.",
+        image: "images/boy.jpg",
+        font: "Arial, sans-serif",
+        backgroundColor: "#ADD8E6",
+        buttonColor: "#0000FF"
+      },
+      girl: {
+        title: "Girl's Content",
+        description: "This is content for the girl section.",
+        image: "images/girl.jpg",
+        font: "'Comic Sans MS', cursive, sans-serif",
+        backgroundColor: "#FFB6C1",
+        buttonColor: "#FF69B4"
+      },
+      old: {
+        title: "Old's Content",
+        description: "This is content for the old section.",
+        image: "images/old.jpg",
+        font: "'Courier New', monospace",
+        backgroundColor: "#D3D3D3",
+        buttonColor: "#808080"
+      }
+    };
+
+    function showContent(type) {
+      const contentDiv = document.getElementById('content');
+      const data = contentData[type];
+
+      // Update content
+      contentDiv.innerHTML = `
+        <h2 style="font-family: ${data.font};">${data.title}</h2>
+        <p style="font-family: ${data.font};">${data.description}</p>
+        <img src="${data.image}" alt="${type} Image">
+      `;
+
+      // Change background color
+      document.body.style.backgroundColor = data.backgroundColor;
+
+      // Reset button styles
+      const buttons = document.querySelectorAll("button");
+      buttons.forEach((button) => {
+        button.classList.remove("active");
+        button.style.backgroundColor = "";
+        button.style.color = "";
+      });
+
+      // Highlight active button
+      const activeButton = document.getElementById(`${type}-btn`);
+      activeButton.classList.add("active");
+      activeButton.style.backgroundColor = data.buttonColor;
+      activeButton.style.color = "white";
+    }
+  </script>
+
+</body>
+</html>
